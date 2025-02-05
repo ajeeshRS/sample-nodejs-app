@@ -8,10 +8,6 @@ app.get("/", (req, res) => {
   res.send("Hello");
 });
 
-app.get("/hai", (req, res) => {
-  res.send("hai from port 8080");
-});
-
 app.get("/name", (req, res) => {
   res.send("hey! its me ajeesh");
 });
