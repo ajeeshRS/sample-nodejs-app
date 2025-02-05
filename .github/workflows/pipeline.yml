@@ -31,12 +31,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - name: setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22.x
-          cache: "npm"
-
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -46,6 +40,12 @@ jobs:
           port: 22
           script: |
             cd sample-nodejs-app
+                       
+            if ! command -v node &> /dev/null; then
+              curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+            
             git pull origin main
             npm install
             npm run build
