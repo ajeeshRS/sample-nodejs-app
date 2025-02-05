@@ -43,9 +43,5 @@ jobs:
             cd sample-nodejs-app
             git pull origin main
             npm install
-            npm install -g pm2
             npm run build
-            pm2 stop nodejs-app || true
-            pm2 start npm --name "nodejs-app" -- start
-            pm2 save
-            pm2 startup
+            npm run start
