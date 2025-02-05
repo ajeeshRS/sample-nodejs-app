@@ -31,6 +31,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+          cache: "npm"
+
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@v1.2.0
         with:
