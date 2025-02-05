@@ -38,13 +38,10 @@ jobs:
           username: ubuntu
           key: ${{secrets.PRIVATE_SSH_KEY}}
           port: 22
-          script: |
-            cd sample-nodejs-app
-                       
+          script: |                       
             export PATH=$PATH:/usr/local/bin
             cd sample-nodejs-app
             git pull origin main
             npm install
             npm run build
-            pkill node || true
-            npm run start &
+            npm run start 
