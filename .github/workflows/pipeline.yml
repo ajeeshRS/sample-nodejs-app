@@ -38,4 +38,10 @@ jobs:
           username: ubuntu
           key: ${{secrets.PRIVATE_SSH_KEY}}
           port: 22
-          script: sample-nodejs-app/deploy.sh
+          script: |
+            cd sample-nodejs-app
+            git pull origin main
+            npm install
+            npm run build
+            pkill node || true
+            nohup npm run start &
