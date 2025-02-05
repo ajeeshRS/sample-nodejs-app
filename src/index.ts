@@ -16,6 +16,10 @@ app.get("/name", (req, res) => {
   res.send("hey! its me ajeesh");
 });
 
+app.get("/greet", (req, res) => {
+  res.send("greetings");
+});
+
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });
