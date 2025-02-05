@@ -43,7 +43,6 @@ jobs:
             cd sample-nodejs-app
             git pull origin main
             npm install
-            npm i -g typescript
             npm run build
             pkill node || true
             npm run start &
