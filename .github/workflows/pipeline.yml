@@ -1,28 +1,41 @@
-name: Nodejs app
-
+name: Deploy nodejs app to ec2
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
 jobs:
-  setup:
+  build:
+    name: building nodejs app
     runs-on: ubuntu-latest
 
     steps:
-      #step 1
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v3
 
-      #step 2
-      - name: setup nodejs
+      - name: setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 23.5.0
+          node-version: 22.x
+          cache: "npm"
 
-      #step 3
-      - name: install dependencies
+      - name: install depedencies
         run: npm install
 
-      #step 4
-      - name: build 
+      - name: build
         run: npm run build
+  deploy:
+    name: push code to ec2
+    needs: ["build"]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{secrets.HOST}}
+          username: ubuntu
+          key: ${{secrets.PRIVATE_SSH_KEY}}
+          port: 22
+          script: ./deploy.sh
