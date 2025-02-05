@@ -41,13 +41,10 @@ jobs:
           script: |
             cd sample-nodejs-app
                        
-            if ! command -v node &> /dev/null; then
-              curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-              sudo apt-get install -y nodejs
-            fi
-            
+            export PATH=$PATH:/usr/local/bin
+            cd sample-nodejs-app
             git pull origin main
             npm install
             npm run build
             pkill node || true
-            nohup npm run start &
+            npm run start &
